@@ -16,33 +16,55 @@ public class World {
 //        System.out.println(joinedDirections);
 
 
-
-
-
         for(Direction direction: directions){
             switch (direction){
                 case f -> System.out.println("Zwierzak idzie do przodu");
                 case b -> System.out.println("Zwierzak idzie do tyłu");
                 case r -> System.out.println("Zwierzak skręca w prawo");
                 case l -> System.out.println("Zwierzak skręca w lewo");
+                //default -> null;
             }
         }
 
+    }
+    public static Direction [] change(String[] strings){
+        Direction[] directions = new Direction[strings.length];
+//        for(String string: strings){
+//            switch (string){
+//                case "f" -> directions
+//
+//            }
+//        }
 
+        for (int i = 0; i < strings.length; i++) {
+            switch (strings[i]){
+                case "f" -> directions[i] = Direction.f;
+                case "b" -> directions[i] = Direction.b;
+                case "r" -> directions[i] = Direction.r;
+                case "l" -> directions[i] = Direction.l;
+                //default -> null;
+            }
+
+        }
+
+        return directions;
     }
     public static void main(String[] args){
         System.out.println("System wystartował");
 
         Direction qwerty = Direction.l;
 
-        Direction[] directions;
+//        Direction[] directions;
+//        // switch casami
+//        for(int i = 0; i < args.length; i++){
+//            directions[i] = Direction.valueOf(args[i]);
+//        }
 
-        for(int i = 0; i < args.length; i++){
-            directions[i] = Direction.valueOf(args[i]);
-        }
+        Direction[] changeValue = change(args);
 
-        //run(args);
-        run(directions);
+
+        run(changeValue);
+        //run(directions);
         System.out.println("System zakończył działanie");
     }
 }
