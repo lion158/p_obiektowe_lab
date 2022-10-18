@@ -55,16 +55,8 @@ public class Vector2d {
     }
 
     public Vector2d opposite(){
-        // co oznacza zmienione znaki?
         return new Vector2d(-x,-y);
     }
-
-//    public boolean equals(Object other){
-//        // sprawdź czy dobrze?
-//        //return other.equals(this);
-//
-//
-//    }
 
     @Override
     public boolean equals(Object other){
