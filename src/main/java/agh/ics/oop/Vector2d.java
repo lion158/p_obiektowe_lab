@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.Objects;
+
 public class Vector2d {
     final public int x;
     final public int y;
@@ -15,21 +17,11 @@ public class Vector2d {
     }
 
     public boolean precedes(Vector2d other){
-        if(y <= other.y && x <= other.x){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return y <= other.y && x <= other.x;
     }
 
     public boolean follows(Vector2d other){
-        if(x >= other.x && y >= other.y){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return x >= other.x && y >= other.y;
     }
 
     public Vector2d add(Vector2d other){
@@ -41,15 +33,15 @@ public class Vector2d {
     }
 
     public Vector2d upperRight(Vector2d other){
-        int greaterX = x > other.x ? x: other.x;
-        int greaterY = y > other.y ? y: other.y;
+        int greaterX = Math.max(x, other.x);
+        int greaterY = Math.max(y, other.y);
 
         return new Vector2d(greaterX, greaterY);
     }
 
     public Vector2d lowerLeft(Vector2d other){
-        int lowerX = x < other.x ? x: other.x;
-        int lowerY = y < other.y ? y: other.y;
+        int lowerX = Math.min(x, other.x);
+        int lowerY = Math.min(y, other.y);
 
         return new Vector2d(lowerX, lowerY);
     }
@@ -58,15 +50,17 @@ public class Vector2d {
         return new Vector2d(-x,-y);
     }
 
-    @Override
-    public boolean equals(Object other){
-        if (this == other)
-            return true;
-        if (!(other instanceof Vector2d))
-            return false;
 
-        // ?????????
-        Vector2d that = (Vector2d) other;
-        return x == that.x && y == that.y;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector2d vector2d = (Vector2d) o;
+        return x == vector2d.x && y == vector2d.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

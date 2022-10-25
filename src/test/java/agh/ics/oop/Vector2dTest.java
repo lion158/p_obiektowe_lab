@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 
 public class Vector2dTest {
 
+    //given
+
+    //when
+
+    //then
 
     @Test
     void equalsTest(){
@@ -17,7 +22,7 @@ public class Vector2dTest {
         Vector2d v5 = new Vector2d(-2,3);
         Vector2d v6 = new Vector2d(-2,3);
 
-
+        //Object.equals
         Assertions.assertEquals(true, v1.equals(v2) );
         Assertions.assertEquals(true,v3.equals(v4));
         Assertions.assertEquals(true, v5.equals(v6));

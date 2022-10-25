@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import javax.swing.text.Position;
+
 public class World {
 
     public static void run(Direction[] directions){
@@ -52,7 +54,7 @@ public class World {
     public static void main(String[] args){
         System.out.println("System wystartował");
 
-        Direction qwerty = Direction.l;
+//        Direction qwerty = Direction.l;
 
 //        Direction[] directions;
 //        // switch casami
@@ -60,22 +62,46 @@ public class World {
 //            directions[i] = Direction.valueOf(args[i]);
 //        }
 
-        Direction[] changeValue = change(args);
+//        Direction[] changeValue = change(args);
+//
+//
+//        run(changeValue);
+//        //run(directions);
+//
+//
+//        Vector2d position1 = new Vector2d(1,2);
+//        System.out.println(position1);
+//        Vector2d position2 = new Vector2d(-2,1);
+//        System.out.println(position2);
+//        System.out.println(position1.add(position2));
+//
+//        MapDirection north = MapDirection.NORTH;
+//
+//        System.out.println(north.toUnitVector());
+
+        Animal animal = new Animal();
+        Vector2d position = new Vector2d(2,2);
+        System.out.println(animal.toString());
+        System.out.println(animal.getPosition());
+        System.out.println(animal.isAt(position));
 
 
-        run(changeValue);
-        //run(directions);
+        System.out.println("move test:");
+        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        System.out.println(animal.toString());
+        System.out.println(animal.getPosition());
 
 
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
+        MoveDirection[] moveDirections = new OptionsParser().parse(args);
 
-        MapDirection north = MapDirection.NORTH;
+        for(MoveDirection moveDirection : moveDirections){
+            animal.move(moveDirection);
+        }
 
-        System.out.println(north.toUnitVector());
+        System.out.println(animal.toString());
 
 
         System.out.println("System zakończył działanie");
