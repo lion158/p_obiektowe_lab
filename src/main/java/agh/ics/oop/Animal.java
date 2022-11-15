@@ -5,9 +5,27 @@ public class Animal {
 
     private Vector2d position = new Vector2d(2,2);
 
+    private IWorldMap map;
+    private Vector2d initialPosition = new Vector2d(2, 2) ;
+
+    public Animal(IWorldMap map){
+        this.map = map;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition){
+        this.map = map;
+        this.initialPosition = initialPosition;
+        this.position = this.initialPosition;
+    }
+
     @Override
     public String toString() {
-        return "(" + direction + ", " + position + ")";
+        return switch (direction){
+            case NORTH -> "N";
+            case EAST -> "E";
+            case WEST -> "W";
+            case SOUTH -> "S";
+        };
     }
 
     public Vector2d getPosition() {
@@ -19,22 +37,23 @@ public class Animal {
     }
 
     public boolean isAt(Vector2d position){
-
+        //return Object.equls
         return this.position.equals(position);
-        //return position.equals(this.position);
     }
 
     public void move(MoveDirection direction){
 
         Vector2d passingDirection = this.position;
 
+
         switch (direction){
             case LEFT -> this.direction = this.direction.previous();
             case RIGHT -> this.direction = this.direction.next();
-            case FORWARD -> this.position = this.position.add(this.direction.toUnitVector());
-            case BACKWARD -> this.position = this.position.subtract(this.direction.toUnitVector());
+            case FORWARD -> passingDirection = this.position.add(this.direction.toUnitVector());
+            case BACKWARD -> passingDirection = this.position.subtract(this.direction.toUnitVector());
         }
-        if (this.position.x < 0 || this.position.x > 4 || this.position.y < 0 || this.position.y > 4){
+
+        if (this.map.canMoveTo(passingDirection)){
             this.position = passingDirection;
         }
     }
