@@ -8,7 +8,11 @@ public class Animal {
     private IWorldMap map;
     private Vector2d initialPosition = new Vector2d(2, 2) ;
 
+//    public Animal(){
+//        this(new RectangularMap(4, 4));
+//    }
     public Animal(IWorldMap map){
+        //this(map, new Vector2d(22))
         this.map = map;
     }
 
