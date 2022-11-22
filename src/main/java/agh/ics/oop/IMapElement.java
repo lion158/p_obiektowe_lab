@@ -1,11 +1,11 @@
 package agh.ics.oop;
 
 public interface IMapElement {
+
     /**
-     * @param element map element
      * @return Vector2d  of element position.
      */
-    Vector2d getPosition(Object element);
+    Vector2d getPosition();
 
     /**
      * @param position position to check

@@ -1,6 +1,6 @@
 package agh.ics.oop;
 
-public class Animal {
+public class Animal implements IMapElement{
     private MapDirection direction = MapDirection.NORTH;
 
     private Vector2d position = new Vector2d(2,2);
@@ -32,18 +32,24 @@ public class Animal {
         };
     }
 
-    public Vector2d getPosition() {
-        return position;
-    }
-
     public MapDirection getDirection() {
         return direction;
     }
 
-    public boolean isAt(Vector2d position){
-        //return Object.equls
+    @Override
+    public Vector2d getPosition() {
+        return position;
+    }
+
+    @Override
+    public boolean isAt(Vector2d position) {
         return this.position.equals(position);
     }
+
+//    public boolean isAt(Vector2d position){
+//        //return Object.equls
+//        return this.position.equals(position);
+//    }
 
     public void move(MoveDirection direction){
 
