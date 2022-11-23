@@ -79,30 +79,36 @@ public class World {
 //
 //        System.out.println(north.toUnitVector());
 
-        Animal animal = new Animal();
-        Vector2d position = new Vector2d(2,2);
-        System.out.println(animal.toString());
-        System.out.println(animal.getPosition());
-        System.out.println(animal.isAt(position));
+//        Animal animal = new Animal();
+//        Vector2d position = new Vector2d(2,2);
+//        System.out.println(animal.toString());
+//        System.out.println(animal.getPosition());
+//        System.out.println(animal.isAt(position));
+//
+//
+//        System.out.println("move test:");
+//        animal.move(MoveDirection.RIGHT);
+//        animal.move(MoveDirection.FORWARD);
+//        animal.move(MoveDirection.FORWARD);
+//        animal.move(MoveDirection.FORWARD);
+//        System.out.println(animal.toString());
+//        System.out.println(animal.getPosition());
+//
+//
+//        MoveDirection[] moveDirections = new OptionsParser().parse(args);
+//
+//        for(MoveDirection moveDirection : moveDirections){
+//            animal.move(moveDirection);
+//        }
+//
+//        System.out.println(animal.toString());
 
-
-        System.out.println("move test:");
-        animal.move(MoveDirection.RIGHT);
-        animal.move(MoveDirection.FORWARD);
-        animal.move(MoveDirection.FORWARD);
-        animal.move(MoveDirection.FORWARD);
-        System.out.println(animal.toString());
-        System.out.println(animal.getPosition());
-
-
-        MoveDirection[] moveDirections = new OptionsParser().parse(args);
-
-        for(MoveDirection moveDirection : moveDirections){
-            animal.move(moveDirection);
-        }
-
-        System.out.println(animal.toString());
-
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(2,2) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
+        System.out.println(map.toString());
 
         System.out.println("System zakończył działanie");
 
