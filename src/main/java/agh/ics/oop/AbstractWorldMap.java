@@ -1,18 +1,16 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-abstract class AbstractWorldMap implements IWorldMap {
-    protected List<Animal> animals;
-    protected List<Grass> grasses;
+abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver {
+    protected Map<Vector2d, Animal> animals;
 
-    AbstractWorldMap(){
-        this.animals = new ArrayList<>();
-        this.grasses = new ArrayList<>();
+    public AbstractWorldMap(){
+        this.animals = new HashMap<>();
     }
-    @Override
-    abstract public boolean canMoveTo(Vector2d position);
 
     @Override
     public boolean place(Animal animal) {
@@ -20,35 +18,55 @@ abstract class AbstractWorldMap implements IWorldMap {
             return false;
         }
         else{
-            this.animals.add(animal);
+            this.animals.put(animal.getPosition(), animal);
             return true;
         }
     }
 
     @Override
     public boolean isOccupied(Vector2d position){
-        for (Animal animal: this.animals){
-            if (animal.getPosition().equals(position)){
-                return true;
-            }
-        }
-        return false;
+        Animal animal = animals.get(position);
+        return animal.getPosition().equals(position);
+
     }
 
     @Override
     public Object objectAt(Vector2d position) {
+        return animals.get(position);
 
-        for (Animal animal: this.animals){
-            if (animal.getPosition().equals(position)){
-                return animal;
-            }
-        }
-        return null;
+//        Animal animal = animals.get(position);
+//        if (animal.getPosition().equals(position)){
+//            return animal;
+//        }
+//        else {
+//            return null;
+//        }
+
     }
 
 
-    public String toString(Vector2d loverLeft, Vector2d upperRight) {
+//    public String toString(Vector2d loverLeft, Vector2d upperRight) {
+//        MapVisualizer visualizer = new MapVisualizer(this);
+//        return visualizer.draw(loverLeft, upperRight);
+//    }
+
+    @Override
+    public String toString() {
         MapVisualizer visualizer = new MapVisualizer(this);
-        return visualizer.draw(loverLeft, upperRight);
+        return visualizer.draw(getLowerBound(), getUpperBound());
+    }
+
+    protected abstract Vector2d getLowerBound();
+
+    protected abstract Vector2d getUpperBound();
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        Animal animal = animals.remove(oldPosition);
+        animals.put(newPosition, animal);
     }
 }
+// iteroewanie po hash mapie keyset
+//entryset
+//zwierze publisher
+//        mapa subskrybent

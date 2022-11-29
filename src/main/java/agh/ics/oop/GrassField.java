@@ -2,14 +2,14 @@ package agh.ics.oop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class GrassField extends AbstractWorldMap {
     private int grassFieldNumber;
 
     private List<Grass> grasses;
-    private List<Animal> animals;
-
+    protected Map<Vector2d, Animal> animals;
     public GrassField(int grassFieldNumber){
         this.grassFieldNumber = grassFieldNumber;
         this.grasses = new ArrayList<>();
@@ -86,40 +86,49 @@ public class GrassField extends AbstractWorldMap {
             return null;
         }
     }
-    @Override
-    public String toString() {
 
+    @Override
+    protected Vector2d getLowerBound() {
         int minX = this.grasses.get(0).getPosition().x;
-        int maxX = this.grasses.get(0).getPosition().x;
         int minY = this.grasses.get(0).getPosition().y;
-        int maxY = this.grasses.get(0).getPosition().y;
         int currentX;
         int currentY;
-        for(Animal animal: animals){
-            currentX = animal.getPosition().x;
-            currentY = animal.getPosition().y;
+        for (Map.Entry<Vector2d, Animal> set:
+                animals.entrySet()) {
+            Vector2d key = set.getKey();
+            currentX = animals.get(key).getPosition().x;
+            currentY = animals.get(key).getPosition().y;
             if (minX > currentX) {
                 minX = currentX;
             }
             if (minY > currentY){
                 minY = currentY;
             }
-            if (maxX < currentX){
-                maxX = currentX;
-            }
-            if (maxY < currentY){
-                maxY = currentY;
-            }
         }
-        for(Grass grass: this.grasses){
+        for(Grass grass: this.grasses) {
             currentX = grass.getPosition().x;
             currentY = grass.getPosition().y;
             if (minX > currentX) {
                 minX = currentX;
             }
-            if (minY > currentY){
+            if (minY > currentY) {
                 minY = currentY;
             }
+        }
+        return new Vector2d(minX, minY);
+    }
+
+    @Override
+    protected Vector2d getUpperBound() {
+        int maxX = this.grasses.get(0).getPosition().x;
+        int maxY = this.grasses.get(0).getPosition().y;
+        int currentX;
+        int currentY;
+        for (Map.Entry<Vector2d, Animal> set:
+                animals.entrySet()) {
+            Vector2d key = set.getKey();
+            currentX = animals.get(key).getPosition().x;
+            currentY = animals.get(key).getPosition().y;
             if (maxX < currentX){
                 maxX = currentX;
             }
@@ -127,7 +136,17 @@ public class GrassField extends AbstractWorldMap {
                 maxY = currentY;
             }
         }
-        return super.toString(new Vector2d(minX,minY), new Vector2d(maxX, maxY));
+        for(Grass grass: this.grasses) {
+            currentX = grass.getPosition().x;
+            currentY = grass.getPosition().y;
+            if (maxX < currentX) {
+                maxX = currentX;
+            }
+            if (maxY < currentY) {
+                maxY = currentY;
+            }
+        }
+        return new Vector2d(maxX,maxY);
     }
 }
 // printowanie listy za pomocą kolekcji (brak możliwości edycji)
