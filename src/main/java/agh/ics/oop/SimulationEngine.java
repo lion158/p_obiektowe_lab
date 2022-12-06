@@ -40,6 +40,8 @@ public class SimulationEngine implements IEngine{
         while (moveCounter < moveDirections.length){
             for (Animal animal: animals){
                 animal.move(moveDirections[moveCounter]);
+                /////////////////////////////////////////////// usuń
+                System.out.println(map.toString());
                 moveCounter ++;
                 if (moveCounter >= moveDirections.length){
                     break;

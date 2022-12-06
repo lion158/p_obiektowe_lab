@@ -185,50 +185,57 @@ public class IntegrationTest {
 //        Assertions.assertEquals(finalPositionForAnimal4,animal4.getPosition());
 //    }
 //
-//    @Test
-//    void shouldCorrectlyInterpretStringArray(){
-//        //given
-//        //animal1
-//        Animal animal1 = new Animal();
-//        String[] input1 = new String[]{"f", "l", "forward", "right", "backward", "left"};
+    @Test
+    void shouldCorrectlyInterpretStringArray(){
+        //given
+        IWorldMap map = new RectangularMap(4,7);
+        Vector2d initialPosition = new Vector2d(2,2);
+
+        //animal1
+        Animal animal1 = new Animal(map, initialPosition);
+        String[] input1 = new String[]{"x", "l", "forward", "right", "backward", "left"};
 //        MoveDirection[] moveDirectionsForAnimal1 = new OptionsParser().parse(input1);
-//        // MoveDirection[] moveDirectionsForAnimal1 = {MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.LEFT};
-//        Vector2d finalPositionForAnimal1 = new Vector2d(1,2);
-//        //animal2
-//        Animal animal2 = new Animal();
-//        String[] input2 = new String[]{"f", "r", "forward", "forward", "f", "left", "f"};
-//        MoveDirection[] moveDirectionsForAnimal2 = new OptionsParser().parse(input2);
-//        //MoveDirection[] moveDirectionsForAnimal2 = {MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.FORWARD, MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.LEFT,MoveDirection.FORWARD};
-//        Vector2d finalPositionForAnimal2 = new Vector2d(4,4);
-//        //animal3
-//        Animal animal3 = new Animal();
-//        String[] input3 = new String[]{"b", "l", "left", "forward", "f", "f", "l", "forward"};
-//        MoveDirection[] moveDirectionsForAnimal3 = new OptionsParser().parse(input3);
-//        //MoveDirection[] moveDirectionsForAnimal3 = {MoveDirection.BACKWARD, MoveDirection.LEFT, MoveDirection.LEFT, MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD};
-//        Vector2d finalPositionForAnimal3 = new Vector2d(3,0);
-//
-//
-//        //when
-//        //animal1
+        // MoveDirection[] moveDirectionsForAnimal1 = {MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.BACKWARD, MoveDirection.LEFT};
+        Vector2d finalPositionForAnimal1 = new Vector2d(1,2);
+        //animal2
+        Animal animal2 = new Animal(map, initialPosition);
+        String[] input2 = new String[]{"f", "r", "forward", "forward", "f", "left", "f"};
+        MoveDirection[] moveDirectionsForAnimal2 = new OptionsParser().parse(input2);
+        //MoveDirection[] moveDirectionsForAnimal2 = {MoveDirection.FORWARD, MoveDirection.RIGHT, MoveDirection.FORWARD, MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.LEFT,MoveDirection.FORWARD};
+        Vector2d finalPositionForAnimal2 = new Vector2d(4,4);
+        //animal3
+        Animal animal3 = new Animal(map, initialPosition);
+        String[] input3 = new String[]{"b", "l", "left", "forward", "f", "f", "l", "forward"};
+        MoveDirection[] moveDirectionsForAnimal3 = new OptionsParser().parse(input3);
+        //MoveDirection[] moveDirectionsForAnimal3 = {MoveDirection.BACKWARD, MoveDirection.LEFT, MoveDirection.LEFT, MoveDirection.FORWARD,MoveDirection.FORWARD,MoveDirection.FORWARD, MoveDirection.LEFT, MoveDirection.FORWARD};
+        Vector2d finalPositionForAnimal3 = new Vector2d(3,0);
+
+
+        //when
+        //animal1
 //        for(MoveDirection moveDirection : moveDirectionsForAnimal1){
 //            animal1.move(moveDirection);
 //        }
-//        //animal2
-//        for(MoveDirection moveDirection : moveDirectionsForAnimal2){
-//            animal2.move(moveDirection);
-//        }
-//        //animal3
-//        for(MoveDirection moveDirection : moveDirectionsForAnimal3){
-//            animal3.move(moveDirection);
-//        }
-//
-//        //then
-//        //animal1
-//        Assertions.assertEquals(finalPositionForAnimal1,animal1.getPosition());
-//        //animal2
-//        Assertions.assertEquals(finalPositionForAnimal2,animal2.getPosition());
-//        //animal3
-//        Assertions.assertEquals(finalPositionForAnimal3,animal3.getPosition());
-//
-//    }
+
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new OptionsParser().parse(input1);});
+
+        //animal2
+        for(MoveDirection moveDirection : moveDirectionsForAnimal2){
+            animal2.move(moveDirection);
+        }
+        //animal3
+        for(MoveDirection moveDirection : moveDirectionsForAnimal3){
+            animal3.move(moveDirection);
+        }
+
+        //then
+        //animal1
+        Assertions.assertEquals("x is not legal move specification",exception.getMessage());
+        //animal2
+        Assertions.assertEquals(finalPositionForAnimal2,animal2.getPosition());
+        //animal3
+        Assertions.assertEquals(finalPositionForAnimal3,animal3.getPosition());
+
+    }
 }

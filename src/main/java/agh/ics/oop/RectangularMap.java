@@ -33,7 +33,8 @@ public class RectangularMap extends AbstractWorldMap{
         int positonY = animal.getPosition().y;
 
         if (positonX < 0 || positonX > this.width || positonY < 0 || positonY > this.height){
-            return false;
+//            return false;
+            throw new  IllegalArgumentException("Position: " + animal.getPosition() + " is not legal (outside the map)");
         }else {
             return super.place(animal);
         }
@@ -50,12 +51,12 @@ public class RectangularMap extends AbstractWorldMap{
 //        return super.toString(new Vector2d(0,0), new Vector2d(this.width, this.height));
 //    }
     @Override
-    protected Vector2d getLowerBound() {
+    public Vector2d getLowerBound() {
         return this.lowerBound;
     }
 
     @Override
-    protected Vector2d getUpperBound() {
+    public Vector2d getUpperBound() {
         return this.upperBound;
     }
 }

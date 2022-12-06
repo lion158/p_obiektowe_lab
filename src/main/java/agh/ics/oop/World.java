@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
+
 import javax.swing.text.Position;
 
 public class World {
@@ -52,7 +55,9 @@ public class World {
         return directions;
     }
     public static void main(String[] args){
-        System.out.println("System wystartował");
+        Application.launch(App.class, args);
+
+//        System.out.println("System wystartował");
 
 //        Direction qwerty = Direction.l;
 
@@ -103,13 +108,15 @@ public class World {
 //
 //        System.out.println(animal.toString());
 
-        MoveDirection[] directions = new OptionsParser().parse(args);
-        IWorldMap map = new RectangularMap(10, 5);
-        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
-        System.out.println(map.toString());
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
-        System.out.println(map.toString());
+
+
+//        MoveDirection[] directions = new OptionsParser().parse(args);
+//        IWorldMap map = new RectangularMap(10, 5);
+//        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+//        System.out.println(map.toString());
+//        IEngine engine = new SimulationEngine(directions, map, positions);
+//        engine.run();
+//        System.out.println(map.toString());
 
 //        MoveDirection[] directions = new OptionsParser().parse(args);
 ////        AbstractWorldMap map = new RectangularMap(10, 5);
@@ -122,7 +129,27 @@ public class World {
 //        System.out.println(grasMap.toString());
 
 
-        System.out.println("System zakończył działanie");
+//        System.out.println("System zakończył działani
+
+
+        try {
+            System.out.println("System wystartował");
+
+            MoveDirection[] directions = new OptionsParser().parse(args);
+//            IWorldMap map = new RectangularMap(10, 5);
+            IWorldMap map = new GrassField(15);
+            Vector2d[] positions = { new Vector2d(2,2),new Vector2d(15,14), new Vector2d(3,4) };
+            System.out.println(map.toString());
+            IEngine engine = new SimulationEngine(directions, map, positions);
+            engine.run();
+            System.out.println(map.toString());
+            System.out.println("System zakończył działanie");
+        }
+        catch (IllegalArgumentException ex){
+            System.out.println("Exception: " + ex.getMessage());
+            System.exit(0);
+        }
+        ////////////////////////////////////////////TESTY
 
     }
 }
