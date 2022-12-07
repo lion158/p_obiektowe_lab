@@ -24,6 +24,8 @@ public class SimulationEngine implements IEngine{
             Animal animal = new Animal(this.map, position);
             if (map.place(animal)){
                 animals.add(animal);
+                //////////////////////////////////////////////////////////////////
+                animal.addObserver((IPositionChangeObserver) this.map);
             }
             else {
                 System.out.println("Animal "+ animal.toString()+" can't be place on the map (this position: "+position.toString() + " is occupied)");
@@ -44,6 +46,5 @@ public class SimulationEngine implements IEngine{
                 }
             }
         }
-
     }
 }

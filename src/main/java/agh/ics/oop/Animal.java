@@ -1,9 +1,13 @@
 package agh.ics.oop;
 
+import java.util.*;
+
 public class Animal implements IMapElement{
     private MapDirection direction = MapDirection.NORTH;
 
     private Vector2d position = new Vector2d(2,2);
+
+    protected List<IPositionChangeObserver> observers = new ArrayList<>();
 
     private IWorldMap map;
     private Vector2d initialPosition = new Vector2d(2, 2) ;
@@ -64,7 +68,25 @@ public class Animal implements IMapElement{
         }
 
         if (this.map.canMoveTo(passingDirection)){
+            /////////////////////////////////////////////////////////////////////////////////////
+            Vector2d oldPosition = this.position;
             this.position = passingDirection;
+            /////////////////////////////////////////////////////////////////////////////////////
+            positionChanged(oldPosition);
+        }
+    }
+
+    public void addObserver(IPositionChangeObserver observer){
+        observers.add(observer);
+    }
+
+    public void removeObserver(IPositionChangeObserver observer){
+        observers.remove(observer);
+
+    }
+    public void positionChanged(Vector2d oldPosition){
+        for (IPositionChangeObserver observer: observers){
+            observer.positionChanged(oldPosition,this.position);
         }
     }
     /* Jak zaimplementować mechanizm, który wyklucza pojawienie się dwóch zwierząt w tym samym miejscu?

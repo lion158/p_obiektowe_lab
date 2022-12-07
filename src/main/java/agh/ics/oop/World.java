@@ -103,22 +103,23 @@ public class World {
 //
 //        System.out.println(animal.toString());
 
-//        MoveDirection[] directions = new OptionsParser().parse(args);
-//        IWorldMap map = new RectangularMap(10, 5);
-//        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(2,5) };
-//        IEngine engine = new SimulationEngine(directions, map, positions);
-//        engine.run();
-//        System.out.println(map.toString());
-
         MoveDirection[] directions = new OptionsParser().parse(args);
-//        AbstractWorldMap map = new RectangularMap(10, 5);
-        IWorldMap grasMap = new GrassField(3);
-        System.out.println(grasMap.toString());
+        IWorldMap map = new RectangularMap(10, 5);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
-        IEngine engine = new SimulationEngine(directions, grasMap, positions);
+        System.out.println(map.toString());
+        IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();
-//        System.out.println(map.toString());
-        System.out.println(grasMap.toString());
+        System.out.println(map.toString());
+
+//        MoveDirection[] directions = new OptionsParser().parse(args);
+////        AbstractWorldMap map = new RectangularMap(10, 5);
+//        IWorldMap grasMap = new GrassField(3);
+//        System.out.println(grasMap.toString());
+//        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+//        IEngine engine = new SimulationEngine(directions, grasMap, positions);
+//        engine.run();
+////        System.out.println(map.toString());
+//        System.out.println(grasMap.toString());
 
 
         System.out.println("System zakończył działanie");

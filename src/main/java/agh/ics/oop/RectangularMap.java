@@ -2,18 +2,24 @@ package agh.ics.oop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class RectangularMap extends AbstractWorldMap{
     private int width;
     private int height;
 
-    private List<Animal> animals;
+    private final Vector2d lowerBound;
 
+    private final Vector2d upperBound;
+
+    protected Map<Vector2d, Animal> animals;
 
     RectangularMap(int width, int height){
         this.width = width;
         this.height = height;
         this.animals = super.animals;
+        this.lowerBound = new Vector2d(0,0);
+        this.upperBound = new Vector2d(width, height);
     }
 
     @Override
@@ -33,23 +39,23 @@ public class RectangularMap extends AbstractWorldMap{
         }
     }
 
-    @Override
-    public boolean isOccupied(Vector2d position) {
-        for (Animal animal: this.animals){
-            if (animal.getPosition().equals(position)){
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public Object objectAt(Vector2d position) {
         return super.objectAt(position);
     }
 
+//    @Override
+//    public String toString(){
+//        return super.toString(new Vector2d(0,0), new Vector2d(this.width, this.height));
+//    }
     @Override
-    public String toString(){
-        return super.toString(new Vector2d(0,0), new Vector2d(this.width, this.height));
+    protected Vector2d getLowerBound() {
+        return this.lowerBound;
+    }
+
+    @Override
+    protected Vector2d getUpperBound() {
+        return this.upperBound;
     }
 }
