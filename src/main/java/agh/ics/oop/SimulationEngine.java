@@ -3,12 +3,13 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimulationEngine implements IEngine{
+public class SimulationEngine implements IEngine, Runnable{
 
     private final MoveDirection[] moveDirections;
     private final IWorldMap map;
     private final Vector2d[] startPositions;
-
+    protected List<IPositionChangeObserver> observers = new ArrayList<>();
+    protected List<IPositionChange> positionChanges = new ArrayList<>();
     private List<Animal> animals;
 
     public SimulationEngine(MoveDirection[] moveDirections, IWorldMap map, Vector2d[] startPositions){
@@ -43,10 +44,33 @@ public class SimulationEngine implements IEngine{
                 /////////////////////////////////////////////// usuń
                 System.out.println(map.toString());
                 moveCounter ++;
+
+                try{
+                    Thread.sleep(300);
+                }catch (InterruptedException e){
+                    System.out.println(e.getMessage());
+                }
+//                Thread.sleep(300);
                 if (moveCounter >= moveDirections.length){
                     break;
                 }
             }
         }
     }
+
+    public void addObserver(IPositionChange observer){
+        positionChanges.add(observer);
+    }
+
+    public void removeObserver(IPositionChange observer){
+        observers.remove(observer);
+    }
+    //private
+    public void positionChanged(){
+        for (IPositionChange observer: positionChanges){
+            observer.positionChanged();
+        }
+    }
+    //ISimulationObserwer
+    //moźna lambdą
 }
