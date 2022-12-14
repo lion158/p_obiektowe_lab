@@ -13,4 +13,6 @@ public interface IMapElement {
      */
     boolean isAt(Vector2d position);
 
+    String getPath();
+
 }

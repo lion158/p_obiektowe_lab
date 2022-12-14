@@ -53,6 +53,17 @@ public class Animal implements IMapElement{
         return this.position.equals(position);
     }
 
+    @Override
+    public String getPath() {
+        MapDirection direction = this.direction;
+        return switch (direction){
+            case NORTH -> "src/main/resources/up.png";
+            case SOUTH -> "src/main/resources/down.png";
+            case WEST -> "src/main/resources/left.png";
+            case EAST -> "src/main/resources/right.png";
+        };
+    }
+
 //    public boolean isAt(Vector2d position){
 //        //return Object.equls
 //        return this.position.equals(position);
@@ -84,7 +95,6 @@ public class Animal implements IMapElement{
 
     public void removeObserver(IPositionChangeObserver observer){
         observers.remove(observer);
-
     }
     //private
     public void positionChanged(Vector2d oldPosition){

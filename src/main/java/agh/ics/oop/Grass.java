@@ -30,6 +30,11 @@ public class Grass implements IMapElement{
             return this.grassPosition.equals(position);
     }
 
+    @Override
+    public String getPath() {
+        return "src/main/resources/grass.png";
+    }
+
     /////////////////////////////można dodać klasę abstrakcyjną (powtarza się kod w animal i tutaj)
     public void addObserver(IPositionChangeObserver observer){
         observers.add(observer);
