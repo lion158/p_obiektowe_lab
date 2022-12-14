@@ -10,6 +10,7 @@ public class GrassField extends AbstractWorldMap {
 
     private List<Grass> grasses;
     protected Map<Vector2d, Animal> animals;
+    protected MapBoundary boundary = new MapBoundary();
     public GrassField(int grassFieldNumber){
         this.grassFieldNumber = grassFieldNumber;
         this.grasses = new ArrayList<>();
@@ -38,7 +39,11 @@ public class GrassField extends AbstractWorldMap {
                 }
 
                 if (!repeat) {
-                    this.grasses.add(new Grass(newRandomVector));
+                    Grass newGrass = new Grass(newRandomVector);
+                    this.grasses.add(newGrass);
+                    /////////////////////////////////////////////////////////////////
+                    newGrass.addObserver(boundary);
+                    boundary.add(newRandomVector);
                     break;
                 }
             }
@@ -52,7 +57,15 @@ public class GrassField extends AbstractWorldMap {
 
     @Override
     public boolean place(Animal animal) {
-        return super.place(animal);
+        if (super.place(animal)){
+            //////////////////////////////////////////////////////////////
+            animal.addObserver(boundary);
+            boundary.add(animal.getPosition());
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override
@@ -88,65 +101,67 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    protected Vector2d getLowerBound() {
-        int minX = this.grasses.get(0).getPosition().x;
-        int minY = this.grasses.get(0).getPosition().y;
-        int currentX;
-        int currentY;
-        for (Map.Entry<Vector2d, Animal> set:
-                animals.entrySet()) {
-            Vector2d key = set.getKey();
-            currentX = animals.get(key).getPosition().x;
-            currentY = animals.get(key).getPosition().y;
-            if (minX > currentX) {
-                minX = currentX;
-            }
-            if (minY > currentY){
-                minY = currentY;
-            }
-        }
-        for(Grass grass: this.grasses) {
-            currentX = grass.getPosition().x;
-            currentY = grass.getPosition().y;
-            if (minX > currentX) {
-                minX = currentX;
-            }
-            if (minY > currentY) {
-                minY = currentY;
-            }
-        }
-        return new Vector2d(minX, minY);
+    public Vector2d getLowerBound() {
+//        int minX = this.grasses.get(0).getPosition().x;
+//        int minY = this.grasses.get(0).getPosition().y;
+//        int currentX;
+//        int currentY;
+//        for (Map.Entry<Vector2d, Animal> set:
+//                animals.entrySet()) {
+//            Vector2d key = set.getKey();
+//            currentX = animals.get(key).getPosition().x;
+//            currentY = animals.get(key).getPosition().y;
+//            if (minX > currentX) {
+//                minX = currentX;
+//            }
+//            if (minY > currentY){
+//                minY = currentY;
+//            }
+//        }
+//        for(Grass grass: this.grasses) {
+//            currentX = grass.getPosition().x;
+//            currentY = grass.getPosition().y;
+//            if (minX > currentX) {
+//                minX = currentX;
+//            }
+//            if (minY > currentY) {
+//                minY = currentY;
+//            }
+//        }
+//        return new Vector2d(minX, minY);
+        return boundary.getLowerBound();
     }
 
     @Override
-    protected Vector2d getUpperBound() {
-        int maxX = this.grasses.get(0).getPosition().x;
-        int maxY = this.grasses.get(0).getPosition().y;
-        int currentX;
-        int currentY;
-        for (Map.Entry<Vector2d, Animal> set:
-                animals.entrySet()) {
-            Vector2d key = set.getKey();
-            currentX = animals.get(key).getPosition().x;
-            currentY = animals.get(key).getPosition().y;
-            if (maxX < currentX){
-                maxX = currentX;
-            }
-            if (maxY < currentY){
-                maxY = currentY;
-            }
-        }
-        for(Grass grass: this.grasses) {
-            currentX = grass.getPosition().x;
-            currentY = grass.getPosition().y;
-            if (maxX < currentX) {
-                maxX = currentX;
-            }
-            if (maxY < currentY) {
-                maxY = currentY;
-            }
-        }
-        return new Vector2d(maxX,maxY);
+    public Vector2d getUpperBound() {
+//        int maxX = this.grasses.get(0).getPosition().x;
+//        int maxY = this.grasses.get(0).getPosition().y;
+//        int currentX;
+//        int currentY;
+//        for (Map.Entry<Vector2d, Animal> set:
+//                animals.entrySet()) {
+//            Vector2d key = set.getKey();
+//            currentX = animals.get(key).getPosition().x;
+//            currentY = animals.get(key).getPosition().y;
+//            if (maxX < currentX){
+//                maxX = currentX;
+//            }
+//            if (maxY < currentY){
+//                maxY = currentY;
+//            }
+//        }
+//        for(Grass grass: this.grasses) {
+//            currentX = grass.getPosition().x;
+//            currentY = grass.getPosition().y;
+//            if (maxX < currentX) {
+//                maxX = currentX;
+//            }
+//            if (maxY < currentY) {
+//                maxY = currentY;
+//            }
+//        }
+//        return new Vector2d(maxX,maxY);
+        return boundary.getUpperBound();
     }
 }
 // printowanie listy za pomocą kolekcji (brak możliwości edycji)

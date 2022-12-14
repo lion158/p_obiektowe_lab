@@ -24,6 +24,9 @@ public class Animal implements IMapElement{
         this.map = map;
         this.initialPosition = initialPosition;
         this.position = this.initialPosition;
+
+        //można tutaj dodać obserwatora można rozszeżyć interface Iworld map (extends) IpositionChangeObserver
+        //można dodać w mapie (place) (animal.addobserver(this))
     }
 
     @Override
@@ -59,7 +62,6 @@ public class Animal implements IMapElement{
 
         Vector2d passingDirection = this.position;
 
-
         switch (direction){
             case LEFT -> this.direction = this.direction.previous();
             case RIGHT -> this.direction = this.direction.next();
@@ -84,6 +86,7 @@ public class Animal implements IMapElement{
         observers.remove(observer);
 
     }
+    //private
     public void positionChanged(Vector2d oldPosition){
         for (IPositionChangeObserver observer: observers){
             observer.positionChanged(oldPosition,this.position);
