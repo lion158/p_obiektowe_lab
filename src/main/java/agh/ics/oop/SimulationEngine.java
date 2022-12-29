@@ -44,6 +44,7 @@ public class SimulationEngine implements IEngine, Runnable{
                 /////////////////////////////////////////////// usuń
                 System.out.println(map.toString());
                 moveCounter ++;
+                /////sleep()
 
                 try{
                     Thread.sleep(300);

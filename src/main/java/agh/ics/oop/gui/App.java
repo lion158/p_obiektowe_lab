@@ -77,6 +77,7 @@ public class App extends Application implements IPositionChange{
         button1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                //////engine.setfirection
                 String text = textField.getText();
                 System.out.println(text);
                 Thread thread = new Thread(engine);
@@ -154,6 +155,10 @@ public class App extends Application implements IPositionChange{
     @Override
     public void positionChanged() {
         Platform.runLater(() -> {
+            //tutaj zrób grida
+//            tutaj odmaluj
+//            stage.setScen(ne S)
+//                    stageshow
             gridPane.getChildren().clear();
             engine.run();
         });
